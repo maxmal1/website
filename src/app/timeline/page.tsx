@@ -13,7 +13,8 @@ export default function TimelinePage() {
 
   const handleMouseLeaveButton = () => {
     setTimeout(() => {
-      if (!document.getElementById('menu').matches(':hover')) {
+      const menuElement = document.getElementById('menu');
+      if (menuElement && !menuElement.matches(':hover')) {
         setMenuOpen(false);
       }
     }, 200);
@@ -21,24 +22,25 @@ export default function TimelinePage() {
 
   const handleMouseLeaveMenu = () => {
     setTimeout(() => {
-      if (!document.getElementById('menu').matches(':hover')) {
+      const menuElement = document.getElementById('menu');
+      if (menuElement && !menuElement.matches(':hover')) {
         setMenuOpen(false);
       }
     }, 200);
   };
   return (
 
-    <main className="flex min-h-screen flex-col items-center justify-start p-24">
+    <main className="flex min-h-screen flex-col items-center justify-start p-10">
           <button 
         onMouseEnter={handleMouseEnterButton}
         onMouseLeave={handleMouseLeaveButton}
-      className="fixed top-4 right-4 z-50 p-2 bg-black text-white rounded"
+      className="fixed top-4 right-4 z-50 p-2 text-white rounded"
       
     >
       <Bars3Icon className="h-6 w-6" aria-hidden="true" />
     </button>
     {menuOpen && (
-      <div id='menu' className="fixed top-0 right-0 h-screen w-64 bg-gray-300 p-4 z-40"
+      <div id='menu' className="fixed top-4 right-4 w-64 bg-white p-4 z-40 rounded-lg shadow-lg"
       onMouseLeave={handleMouseLeaveMenu}>
         <nav className="flex flex-col space-y-4">
         <Link href=".." className="text-black hover:underline">Home</Link>

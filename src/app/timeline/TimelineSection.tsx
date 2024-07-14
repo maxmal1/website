@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+
 interface Item{ title: string; content: string; startYear: number; startMonth: string; endYear: number; endMonth: string; }
 
 const monthFractions = {
@@ -41,33 +43,45 @@ export function TimelineSection({ education, work}) {
   };
 
   const renderColumn = (items, isLeft) => {
+    /* eslint-disable */
     return items.map((item, index) => {
+      
+      const [isHovered, setIsHovered] = useState(false);
       const topPosition = calculatePosition(item.endYear_calc);
       const height = calculatePosition(item.endYear_calc) - calculatePosition(item.startYear_calc);
-
       const leftPosition = isLeft ? '-1.5%' : '51.5%';
-      
+    /* eslint-enable */
+  
       return (
         <div
           key={index}
-          className="absolute w-[calc(25%-0rem)] bg-white rounded-lg shadow-md p-4"
+          className="absolute w-[calc(25%-0rem)] bg-white rounded-lg shadow-md p-4 transition-all duration-300 ease-in-out"
           style={{
             top: `${100 - topPosition}%`,
-            height: `${height}%`,
+            height: isHovered && height < 20 ? `${height+25}%` : `${height}%`,
             left: leftPosition,
             transform: isLeft ? 'translateX(100%)' : 'translateX(0%)',
+            zIndex: isHovered ? 10 : 1,
           }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           <h2 className="text-sm text-black font-semibold mb-1">{item.title}</h2>
-          <p className="text-sm text-black mb-2">{item.startYear} {item.startMonth} - {item.endYear} {item.endMonth}</p>
-          <p className="text-sm text-black">{item.content}</p>
+          {/* Conditionally render title, start/end dates, and content based on hover state */}
+          {isHovered && (
+            <div style={{ maxHeight: '100%' }}>
+              <p className="text-sm text-black mb-2">{item.startYear} {item.startMonth} - {item.endYear} {item.endMonth}</p>
+              <p className="text-sm text-black">{item.content}</p>
+            </div>
+          )}
         </div>
       );
     });
   };
+  
 
   return (
-    <div className="w-full max-w-5xl mt-16 relative" style={{ height: '800px' }}>
+    <div className="w-full max-w-5xl mt-16 relative" style={{ height: '400px' }}>
       <div className="absolute inset-0">
         {renderColumn(education, true)}
         {renderColumn(work, false)}

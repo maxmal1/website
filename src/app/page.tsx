@@ -14,7 +14,8 @@ export default function Home() {
 
   const handleMouseLeaveButton = () => {
     setTimeout(() => {
-      if (!document.getElementById('menu').matches(':hover')) {
+      const menuElement = document.getElementById('menu');
+      if (menuElement && !menuElement.matches(':hover')) {
         setMenuOpen(false);
       }
     }, 200);
@@ -22,32 +23,34 @@ export default function Home() {
 
   const handleMouseLeaveMenu = () => {
     setTimeout(() => {
-      if (!document.getElementById('menu').matches(':hover')) {
+      const menuElement = document.getElementById('menu');
+      if (menuElement && !menuElement.matches(':hover')) {
         setMenuOpen(false);
       }
     }, 200);
   };
   return (
-    <main className="relative w-full h-screen bg-cover bg-center" style={{ backgroundImage: "url('/headshot.png')" }}>
-      <div className="flex min-h-screen flex-col items-center justify-start p-24">
+    <main>
+      <div className="w-full min-h-screen flex flex-col bg-cover bg-center" style={{ 
+        backgroundImage: "url('/painting3.png')",
+        }}>
+      <div className="flex flex-col items-center justify-start p-10">
       <button 
-        className="fixed top-4 right-4 z-50 p-2 bg-black text-white rounded"
+        className="fixed top-4 right-4 z-50 p-2 text-white rounded"
         onMouseEnter={handleMouseEnterButton}
         onMouseLeave={handleMouseLeaveButton}
       >
         <Bars3Icon className="h-6 w-6" aria-hidden="true" />
       </button>
       {menuOpen && (
-        <div id="menu" className="fixed top-0 right-0 h-screen w-64 bg-gray-300 p-4 z-40"
+        <div id="menu" className="fixed top-4 right-4 w-64 bg-white p-4 z-40 rounded-lg shadow-lg"
         onMouseLeave={handleMouseLeaveMenu}>
           <nav className="flex flex-col space-y-4">
-            
           <Link href="./timeline" className="text-black hover:underline">History</Link>
           </nav>
           
         </div>
       )}
-
       <h1 className="mb-8 text-4xl md:text-3xl sm:text-2xl font-semibold tracking-tighter text-center">
         Maxwell Malamut
       </h1>
@@ -58,12 +61,14 @@ export default function Home() {
         <a href="mailto:maxmal@bu.edu" className="text-white-500 hover:underline">maxmal@bu.edu</a>
       </div>
       </div>
-      
-      <div className="max-w-3xl bg-white rounded-lg p-8 mt-24">
+      </div>
+
+      <div className="flex flex-col items-center justify-start">
+      <div className="max-w-3xl bg-white rounded-lg p-8 mt-2">
         <div className="flex flex-col md:flex-row items-start justify-between">
           <div className="md:w-3/5 md:pr-12">
             <p className="text-lg text-gray-800">
-              This is where your additional text can go. The text will now be on the left side on larger screens, with the image pushed further to the right. On smaller screens, the text will appear above the image. You can add more content here, and it will adjust accordingly.
+              Hi, I'm Max. I'm currently working as a deep learning engineer. My focus is in LLM's, NLP, and Computer Vision.
             </p>
           </div>
           <div className="md:w-2/5 mt-4 md:mt-0 flex justify-end">
@@ -74,8 +79,8 @@ export default function Home() {
               height={200}
               className="rounded-md"
             />
-
         </div>
+      </div>
       </div>
       </div>
       </div>
