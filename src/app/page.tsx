@@ -55,7 +55,7 @@ export default function Home() {
         Maxwell Malamut
       </h1>
       <div className="max-w-5xl">
-      <div className="w-full max-w-5xl mb-8 flex flex-col items-center lg:flex-row lg:justify-center lg:space-x-20 border-2 border-gray-300 rounded-lg p-4">
+      <div className="w-full max-w-5xl mb-8 flex flex-col items-center lg:flex-row lg:justify-center lg:space-x-20 border-2 border-white rounded-lg p-4">
         <a href="https://www.linkedin.com/in/maxwellmalamut" className="text-white-500 hover:underline mb-4 lg:mb-0 lg:mr-4">LinkedIn</a>
         <a href="https://github.com/maxmal1" className="text-white-500 hover:underline mb-4 lg:mb-0 lg:mr-4">GitHub</a>
         <a href="mailto:maxmal@bu.edu" className="text-white-500 hover:underline">maxmal@bu.edu</a>
@@ -64,9 +64,13 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col items-center justify-start">
-      <div className="max-w-3xl bg-white rounded-lg p-8 mt-2">
-        <div className="flex flex-col md:flex-row items-start justify-between">
-          <div className="md:w-3/5 md:pr-12">
+      <div className="max-w-3xl bg-white rounded-lg p-6 mt-2">
+        <div className="flex flex-col md:flex-row items-start justify-between"style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}}>
+          <div className="md:w-3/5 md:pr-12 flex align-items-center justify-center text-center">
             <p className="text-lg text-gray-800">
               Hi, I'm Max. I'm currently working as a deep learning engineer. My focus is in LLM's, NLP, and Computer Vision.
             </p>
