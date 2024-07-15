@@ -81,7 +81,7 @@ export function TimelineSection({ education, work}) {
   
 
   return (
-    <div className="w-full max-w-5xl mt-16 relative" style={{ height: '400px' }}>
+    <div className="w-full max-w-5xl mt-16 relative" style={{ height: '800px' }}>
       <div className="absolute inset-0">
         {renderColumn(education, true)}
         {renderColumn(work, false)}
