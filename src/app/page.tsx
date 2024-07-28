@@ -1,81 +1,21 @@
 "use client"
-import Link from 'next/link';
 import Image from "next/image";
-import { useState } from 'react';
-import { Bars3Icon } from '@heroicons/react/24/outline';
-
-
+import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const handleMouseEnterButton = () => {
-    setMenuOpen(true);
-  };
-
-  const handleMouseLeaveButton = () => {
-    setTimeout(() => {
-      const menuElement = document.getElementById('menu');
-      if (menuElement && !menuElement.matches(':hover')) {
-        setMenuOpen(false);
-      }
-    }, 200);
-  };
-
-  const handleMouseLeaveMenu = () => {
-    setTimeout(() => {
-      const menuElement = document.getElementById('menu');
-      if (menuElement && !menuElement.matches(':hover')) {
-        setMenuOpen(false);
-      }
-    }, 200);
-  };
   return (
-    <main>
-      <div className="w-full min-h-screen flex flex-col bg-cover bg-center" style={{ 
-        backgroundImage: "url('/painting3.png')",
-        }}>
-      <div className="flex flex-col items-center justify-start p-10">
-      <button 
-        className="fixed top-4 right-4 z-50 p-2 text-white rounded"
-        onMouseEnter={handleMouseEnterButton}
-        onMouseLeave={handleMouseLeaveButton}
-      >
-        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-      </button>
-      {menuOpen && (
-        <div id="menu" className="fixed top-4 right-4 w-64 bg-white p-4 z-40 rounded-lg shadow-lg"
-        onMouseLeave={handleMouseLeaveMenu}>
-          <nav className="flex flex-col space-y-4">
-          <Link href="./timeline" className="text-black hover:underline">History</Link>
-          </nav>
-          
+    <>
+      <nav className="w-full flex items-center bg-white shadow-md p-4 fixed top-0 left-0 z-10">
+        <div className="ml-auto flex space-x-4">
+          <a href="/" className="text-lg font-semibold text-black hover:underline">Home</a>
+          <a href="/about" className="text-lg font-semibold text-black hover:underline">About Me</a>
         </div>
-      )}
-      <h1 className="mb-8 text-4xl md:text-3xl sm:text-2xl font-semibold tracking-tighter text-center">
-        Maxwell Malamut
-      </h1>
-      <div className="max-w-5xl">
-      <div className="w-full max-w-5xl mb-8 flex flex-col items-center lg:flex-row lg:justify-center lg:space-x-20 border-2 border-white rounded-lg p-4">
-        <a href="https://www.linkedin.com/in/maxwellmalamut" className="text-white-500 hover:underline mb-4 lg:mb-0 lg:mr-4">LinkedIn</a>
-        <a href="https://github.com/maxmal1" className="text-white-500 hover:underline mb-4 lg:mb-0 lg:mr-4">GitHub</a>
-        <a href="mailto:maxmal@bu.edu" className="text-white-500 hover:underline">maxmal@bu.edu</a>
-      </div>
-      </div>
-      </div>
-
-      <div className="flex flex-col items-center justify-start">
-      <div className="max-w-3xl bg-white rounded-lg p-6 mt-2">
-        <div className="flex flex-col md:flex-row items-start justify-between"style={{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}}>
-          <div className="md:w-3/5 md:pr-12 flex align-items-center justify-center text-center">
-            <p className="text-lg text-gray-800">
-              Hi, I'm Max. I'm currently working as a deep learning engineer. My focus is in LLM's, NLP, and Computer Vision.
-            </p>
-          </div>
-          <div className="md:w-2/5 mt-4 md:mt-0 flex justify-end">
+      </nav>
+    <main>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      <div className="max-w-3xl w-full bg-white rounded-lg justify-center shadow-lg p-6">
+        <div className="flex flex-col md:flex-row justify-center  gap-6">
+          <div className="w-full md:w-1/3 flex justify-center">
             <Image
               src="/headshot.png"
               alt="Headshot of Maxwell Malamut"
@@ -83,12 +23,31 @@ export default function Home() {
               height={200}
               className="rounded-md"
             />
+          </div>
+          
+          <div className="w-full md:w-2/3 flex flex-col">
+          <h1 className="text-2xl text-black font-semibold mb-4 md:text-left">
+              Maxwell Malamut
+            </h1>
+            <div className="flex flex-wrap md:justify-start gap-4 mb-2">
+            <a href="https://www.linkedin.com/in/maxwellmalamut" className="flex items-center text-black hover:underline mb-4 lg:mb-0">
+              <FaLinkedin className="mr-2 text-2xl" />
+            </a>
+            <a href="https://github.com/maxmal1" className="flex items-center text-black hover:underline mb-4 lg:mb-0">
+              <FaGithub className="mr-2 text-2xl" />
+            </a>
+            <a href="mailto:mimmalamut@gmail.com" className="flex items-center text-black hover:underline mb-4 lg:mb-0">
+              <FaEnvelope className="mr-2 text-2xl" />
+            </a>
+            </div>
+            <p className="text-lg text-black mb-4 text-center md:text-left">
+              Hi, I'm Max. I'm currently working as a deep learning engineer. My focus is in LLMs, NLP, and Computer Vision.
+            </p>
+          </div>
         </div>
       </div>
       </div>
-      </div>
-      </div>
     </main>
+    </>
   );
 }
-
