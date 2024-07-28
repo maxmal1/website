@@ -1,14 +1,15 @@
 "use client"
 import Image from "next/image";
 import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <>
       <nav className="w-full flex items-center bg-white shadow-md p-4 fixed top-0 left-0 z-10">
         <div className="ml-auto flex space-x-4">
-          <a href="/" className="text-lg font-semibold text-black hover:underline">Home</a>
-          <a href="/about" className="text-lg font-semibold text-black hover:underline">About Me</a>
+        <Link href="./" className="text-black hover:underline">Home</Link>
+        <Link href="./about" className="text-black hover:underline">About Me</Link>
         </div>
       </nav>
     <main>
