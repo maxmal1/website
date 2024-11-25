@@ -72,8 +72,8 @@ const NeuralNoiseBackground = () => {
         noise = max(.0, noise - .5);
         noise *= (1. - length(vUv - .5));
 
-        color = normalize(vec3(.2, .5 + .4 * cos(3. * u_scroll_progress), .5 + .5 * sin(3. * u_scroll_progress)));
-
+        //color = normalize(vec3(.2, .5 + .4 * cos(3. * u_scroll_progress), .5 + .5 * sin(3. * u_scroll_progress)));
+        color = vec3(0.267,0.408,0.475);
         color = color * noise;
 
         gl_FragColor = vec4(color, noise);
