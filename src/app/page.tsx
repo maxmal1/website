@@ -2,10 +2,11 @@
 import Image from "next/image";
 import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 import Link from 'next/link';
-
+import NeuralNoiseBackground from './NeuralNoise'
 export default function Home() {
   return (
     <>
+     <NeuralNoiseBackground />
       <nav className="w-full flex items-center bg-white shadow-md p-4 fixed top-0 left-0 z-10">
         <div className="ml-auto flex space-x-4">
         <Link href="./" className="text-black hover:underline">Home</Link>
@@ -13,7 +14,7 @@ export default function Home() {
         </div>
       </nav>
     <main>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      <div className="min-h-screen flex items-center justify-center p-4">
       <div className="max-w-3xl w-full bg-white rounded-lg justify-center shadow-lg p-6">
         <div className="flex flex-col md:flex-row justify-center  gap-6">
           <div className="w-full md:w-1/3 flex justify-center">
