@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const NeuralNoiseBackground = () => {
+const NeuralNoiseBackground = ( {opacity}) => {
   const canvasRef = useRef(null);
   const glRef = useRef(null);
   const uniformsRef = useRef(null);
@@ -226,8 +226,9 @@ const NeuralNoiseBackground = () => {
         left: 0,
         width: '100%',
         pointerEvents: 'none',
-        opacity: 0.95,
-        zIndex: -1
+        opacity: opacity,
+        zIndex: -1,
+        transition: "opacity 0.3s ease",
       }}
     />
   );
