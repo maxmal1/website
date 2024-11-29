@@ -33,13 +33,16 @@ const BlobBackground = () => {
         zIndex: -1 
       }}
     >
-      {/* Background Image */}
+      {/* Solid Background */}
       <div 
-        className="absolute top-0 left-0 w-full h-full bg-cover bg-top filter grayscale-[70%]" 
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-0.3.5&s=e20bc3d490c974d9ea190e05c47962f5&auto=format&fit=crop&w=634&q=80)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          width: '100%',
+          height: '100%',
+          backgroundColor: '#1a202c', // Solid background color (dark gray/navy tone)
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: -1
         }}
       />
 
@@ -63,9 +66,15 @@ const BlobBackground = () => {
               result="goo" 
             />
           </filter>
+
+          {/* Gradient for Blobs */}
+          <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style={{ stopColor: "#ff7eb3", stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: "#65c7f7", stopOpacity: 1 }} />
+          </linearGradient>
         </defs>
 
-        {/* Mask with Blob Circles */}
+        {/* Mask with Gradient Blobs */}
         <mask id="mask" x="0" y="0">
           <g style={{ filter: 'url(#gooey)' }}>
             {[
@@ -94,20 +103,18 @@ const BlobBackground = () => {
                 cx={`${blob.cx}%`} 
                 cy={`${blob.cy}%`} 
                 r={blob.r} 
-                fill="white" 
-                stroke="white"
+                fill="white"
               />
             ))}
           </g>
         </mask>
 
-        {/* Image with Mask */}
-        <image 
-          xlinkHref="https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-0.3.5&s=e20bc3d490c974d9ea190e05c47962f5&auto=format&fit=crop&w=634&q=80"
-          mask="url(#mask)" 
+        {/* Gradient Blobs */}
+        <rect 
           width="100%" 
           height="100%" 
-          preserveAspectRatio="xMidYMid slice"
+          fill="url(#blobGradient)" 
+          mask="url(#mask)" 
         />
       </svg>
 
