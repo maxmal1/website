@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 import Link from 'next/link';
-import NeuralNoiseBackground from './NeuralNoise'
+// import NeuralNoiseBackground from './NeuralNoise'
+import BlobBackground from "./BlobBackground";
 
 export default function Home() {
 
@@ -26,22 +27,18 @@ export default function Home() {
 
   return (
     <>
-     <NeuralNoiseBackground opacity={headerOpacity}/>
+     {/* <NeuralNoiseBackground opacity={headerOpacity}/> */}
+     <BlobBackground />
       <nav className="w-full flex items-center p-4 fixed top-0 left-0 z-10">
         <div className="ml-auto flex space-x-4">
         <Link href="./" className="text-[#EAEAEA] hover:underline">Home</Link>
         <Link href="./about_me" className="text-[#EAEAEA] hover:underline">About Me</Link>
+        <Link href="./projects" className="text-[#EAEAEA] hover:underline">Projects</Link>
         <Link href="./cv" className="text-[#EAEAEA] hover:underline">CV</Link>
         </div>
       </nav>
 
-      <header className="relative w-full h-screen bg-cover bg-center flex items-center justify-center"
-              style={{
-                opacity: headerOpacity,
-                pointerEvents: headerOpacity === 0 ? "none" : "auto", // Disable interactions when fully transparent
-                transition: "opacity 0.6s ease, pointer-events 0.3s ease",
-              }}
-      >
+      <header className="relative w-full h-screen bg-cover bg-center flex items-center justify-center">
         <div className="fixed text-center text-[#EAEAEA]">
           <h1 className="text-5xl font-bold mb-6">Maxwell Malamut</h1>
           <div className="flex justify-center space-x-6">

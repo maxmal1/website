@@ -8,6 +8,7 @@ export default function Home() {
         <div className="ml-auto flex space-x-4">
           <Link href="./" className="text-[#EAEAEA] hover:underline">Home</Link>
           <Link href="./about_me" className="text-white hover:underline">About Me</Link>
+          <Link href="./projects" className="text-[#EAEAEA] hover:underline">Projects</Link>
           <Link href="./cv" className="text-white hover:underline">CV</Link>
         </div>
       </nav>

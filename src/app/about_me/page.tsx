@@ -9,6 +9,7 @@ export default function Home() {
         <div className="ml-auto flex space-x-4">
           <Link href="./" className="text-[#EAEAEA] hover:underline">Home</Link>
           <Link href="./about_me" className="text-white hover:underline">About Me</Link>
+          <Link href="./projects" className="text-[#EAEAEA] hover:underline">Projects</Link>
           <Link href="./cv" className="text-white hover:underline">CV</Link>
         </div>
       </nav>
@@ -32,7 +33,7 @@ export default function Home() {
           on deep learning applications for diagnosing CTE in brain imaging.
           </p>
           <p className="text-lg leading-6">
-          Outside of work, I am a alumni student mentor at BU, I enjoy going to the gym, 
+          Outside of work, I am an alumni student mentor at BU, I enjoy going to the gym, 
           spending time with friends, and continuously learning through personal projects.
           </p>
         </div>
