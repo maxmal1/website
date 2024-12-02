@@ -1,10 +1,11 @@
 "use client"
+import { useEffect } from 'react';
 import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center p-4">
-      <nav className="relative w-full flex items-center fixed top-0 left-0 z-10">
+    <main className="flex flex-col items-center p-4">
+      <nav className="w-full flex items-center p-4 fixed top-0 left-0 z-10 bg-[#111111]">
         <div className="ml-auto flex space-x-4">
           <Link href="./" className=" hover:underline">Home</Link>
           <Link href="./about_me" className=" hover:underline">About Me</Link>

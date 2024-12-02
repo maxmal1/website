@@ -1,5 +1,5 @@
+'use client';
 import Link from 'next/link';
-
 import Card from '../Card';
 
 export default function Home() {

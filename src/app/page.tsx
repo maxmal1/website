@@ -6,26 +6,10 @@ import NeuralNoiseBackground from './NeuralNoise';
 
 export default function Home() {
 
-  const [headerOpacity, setHeaderOpacity] = useState(1);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const maxScroll = 200;
-      const opacity = Math.max(1 - scrollPosition / maxScroll, 0);
-      setHeaderOpacity(opacity);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <>
-     <NeuralNoiseBackground opacity={headerOpacity}/>
+     <NeuralNoiseBackground opacity={1}/>
      <div className="bg"></div>
       <nav className="w-full flex items-center p-4 fixed top-0 left-0 z-10">
         <div className="ml-auto flex space-x-4">
