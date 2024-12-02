@@ -7,10 +7,10 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center p-4">
       <nav className="w-full flex items-center p-4 fixed top-0 left-0 z-10">
         <div className="ml-auto flex space-x-4">
-          <Link href="./" className="text-[#EAEAEA] hover:underline">Home</Link>
-          <Link href="./about_me" className="text-white hover:underline">About Me</Link>
-          <Link href="./projects" className="text-[#EAEAEA] hover:underline">Projects</Link>
-          <Link href="./cv" className="text-white hover:underline">CV</Link>
+          <Link href="./" className=" hover:underline">Home</Link>
+          <Link href="./about_me" className=" hover:underline">About Me</Link>
+          <Link href="./projects" className=" hover:underline">Projects</Link>
+          <Link href="./cv" className=" hover:underline">CV</Link>
         </div>
       </nav>
       <div className="flex flex-col items-center mt-20">
@@ -22,7 +22,7 @@ export default function Home() {
           className="rounded-full shadow-lg"
         />
 
-        <div className="text-center mt-6 max-w-xl text-[#EAEAEA] space-y-4">
+        <div className="text-center mt-6 max-w-xl  space-y-4">
           <p className="text-lg leading-6">
           I am a machine learning engineer using LLMs and developing retrieval-augmented 
           generation systems. I am a recent graduate of Boston University, where I received 
