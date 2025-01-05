@@ -15,10 +15,10 @@ export default function Home() {
       </nav>
       <div className="flex flex-col items-center mt-20">
         <Image
-          src="/headshot.png" // Replace with your actual image path
-          alt="Your Name"
-          width={150} // Adjust size
-          height={150} // Adjust size
+          src="/headshot.png"
+          alt="Max"
+          width={150} 
+          height={150}
           className="rounded-full shadow-lg"
         />
 

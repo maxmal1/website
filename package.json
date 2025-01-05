@@ -6,8 +6,13 @@
   "dependencies": {
     "@heroicons/react": "^2.1.5",
     "@types/react-vertical-timeline-component": "^3.3.6",
+    "add": "^2.0.6",
+    "alert": "^6.0.2",
+    "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",
-    "next": "14.2.4",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.469.0",
+    "next": "^14.2.22",
     "prop-types": "^15.8.1",
     "react": "^18",
     "react-chrono": "^2.6.1",
@@ -16,7 +21,10 @@
     "react-intersection-observer": "^9.13.0",
     "react-router-dom": "^6.24.1",
     "react-vertical-timeline-component": "^3.6.0",
-    "sass": "^1.81.0"
+    "sass": "^1.81.0",
+    "shadcn": "^2.1.8",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "scripts": {
     "dev": "next dev",
@@ -25,6 +33,7 @@
     "lint": "next lint"
   },
   "devDependencies": {
+    "@gradio/client": "^1.8.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

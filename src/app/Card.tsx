@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import './Card.scss';
 
 interface CardProps {
@@ -18,8 +19,14 @@ const Card: React.FC<CardProps> = ({
   buttonLabel, 
   buttonLink 
 }) => {
-  const handleButtonClick = () => {
-    window.open(buttonLink, '_blank', 'noopener,noreferrer');
+  const isExternalLink = (url: string) => {
+    try {
+      const link = new URL(url);
+      return link.origin !== window.location.origin;
+    } catch {
+      // If the URL constructor fails, treat it as an internal link
+      return false;
+    }
   };
 
   return (
@@ -34,12 +41,18 @@ const Card: React.FC<CardProps> = ({
       <div className="content">
         <h3 className="title">{title}</h3>
         <p className="copy">{content}</p>
-        <button 
-          className="btn" 
-          onClick={handleButtonClick}
-        >
-          {buttonLabel}
-        </button>
+        {isExternalLink(buttonLink) ? (
+          <button 
+            className="btn" 
+            onClick={() => window.open(buttonLink, '_blank', 'noopener,noreferrer')}
+          >
+            {buttonLabel}
+          </button>
+        ) : (
+          <Link href={buttonLink} className="btn">
+            {buttonLabel}
+          </Link>
+        )}
       </div>
     </div>
   );

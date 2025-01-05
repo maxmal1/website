@@ -1,5 +1,4 @@
-"use client"
-import { useState, useEffect } from "react";
+"use client";
 import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 import Link from 'next/link';
 import NeuralNoiseBackground from './NeuralNoise';

@@ -5,6 +5,13 @@ import Card from '../Card';
 export default function Home() {
     const cards = [
         {
+            image: '/wordle.png',
+            title: 'wordRLe',
+            content: 'Offline RL project teaching a model to play the game of Wordle.',
+            buttonLabel: 'wordRLe',
+            buttonLink: "./projects/wordRLe"
+            },
+        {
             image: '/hero_section.png',
             title: 'maxmalamut.com',
             content: 'GitHub repo containing the code for my website, and the codepen inspiration.',
