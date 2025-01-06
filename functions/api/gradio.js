@@ -68,9 +68,6 @@ export async function onRequest(context) {
               if (line.startsWith('data:')) {
                 const dataLine = line.replace(/^data:\s*/, '').trim();
 
-                // Filter out unwanted data such as 'event: generating'
-                if (!dataLine.startsWith('[') && !dataLine.startsWith('{')) continue;
-
                 try {
                   const parsedData = JSON.parse(dataLine);
                   console.log('Sending parsed data:', parsedData);
@@ -83,7 +80,7 @@ export async function onRequest(context) {
           }
 
           // Process any remaining buffer data
-          if (buffer.trim() && (buffer.startsWith('[') || buffer.startsWith('{'))) {
+          if (buffer.trim()) {
             try {
               const parsedData = JSON.parse(buffer);
               controller.enqueue(encoder.encode(`data: ${JSON.stringify(parsedData)}\n\n`));
