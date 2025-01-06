@@ -1,8 +1,4 @@
-// functions/api/gradio.js
-import { Client } from "@gradio/client";
-
 export async function onRequest(context) {
-  // Set CORS and SSE headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -12,7 +8,6 @@ export async function onRequest(context) {
     'Connection': 'keep-alive'
   };
 
-  // Handle OPTIONS request for CORS preflight
   if (context.request.method === 'OPTIONS') {
     return new Response(null, { headers });
   }
@@ -20,49 +15,38 @@ export async function onRequest(context) {
   try {
     const { word } = await context.request.json();
 
-    // Connect to your Gradio space
-    const client = await Client.connect("maxmal1/wordlebot");
+    // Instead of using @gradio/client, we'll make direct fetch calls to the Gradio API
+    const response = await fetch('https://maxmal1-wordlebot.hf.space/api/predict', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        data: [word],
+        event_data: null,
+        fn_index: 0
+      })
+    });
 
-    // Get the prediction stream
-    const stream = client.submit("/predict", { word });
+    if (!response.ok) {
+      throw new Error(`Gradio API responded with status: ${response.status}`);
+    }
 
-    // Create encoder for streaming
-    const encoder = new TextEncoder();
-
-    // Create a TransformStream to handle the data
+    // Create a transform stream to format the response
     const transformStream = new TransformStream({
       async transform(chunk, controller) {
+        const encoder = new TextEncoder();
         controller.enqueue(encoder.encode(JSON.stringify(chunk) + '\n'));
       }
     });
 
-    // Create a readable stream from the Gradio events
-    const readable = new ReadableStream({
-      async start(controller) {
-        try {
-          for await (const event of stream) {
-            controller.enqueue(event);
-          }
-          controller.close();
-        } catch (error) {
-          console.error('Error in stream processing:', error);
-          controller.error(error);
-        }
-      }
-    });
-
-    // Pipe the readable stream through the transform stream
-    const streamResponse = readable.pipeThrough(transformStream);
-
-    // Return the streaming response
-    return new Response(streamResponse, { headers });
+    return new Response(response.body?.pipeThrough(transformStream), { headers });
 
   } catch (error) {
     console.error('Error in Gradio API route:', error);
     return new Response(
       JSON.stringify({
         error: error.message,
-        stack: error.stack,
         details: 'Error occurred in Gradio API route'
       }), 
       {
