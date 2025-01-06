@@ -1,2 +1,10 @@
 name = "gradio-worker"
 compatibility_date = "2024-01-01"
+
+[build]
+command = "npm run build"
+
+# If you need to bypass the module resolution error
+[build.upload]
+format = "modules"
+main = "./functions/api/gradio.js"
