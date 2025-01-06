@@ -61,15 +61,12 @@ export async function onRequest(context) {
 
             // Accumulate data in the buffer and process when full lines are available
             buffer += chunk;
-            console.log('buffer:', buffer);
             const lines = buffer.split('\n');
             buffer = lines.pop(); // Save incomplete line back to the buffer
-            console.log('buffer:', buffer);
 
             for (const line of lines) {
               if (line.startsWith('data:')) {
                 const dataLine = line.replace(/^data:\s*/, '').trim();
-                console.log('dataline:', dataLine);
                 try {
                   const parsedData = JSON.parse(dataLine);
                   console.log('Sending parsed data:', parsedData);
