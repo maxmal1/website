@@ -14,8 +14,8 @@ export async function onRequest(context) {
 
   try {
     const { word } = await context.request.json();
+    console.log('Processing word:', word);
 
-    // Instead of using @gradio/client, we'll make direct fetch calls to the Gradio API
     const response = await fetch('https://maxmal1-wordlebot.hf.space/gradio_api/call/predict', {
       method: 'POST',
       headers: {
@@ -23,24 +23,34 @@ export async function onRequest(context) {
       },
       body: JSON.stringify({
         data: [word],
-        event_data: null,
-        fn_index: 0
+        event_data: null
       })
     });
 
     if (!response.ok) {
-      throw new Error(`Gradio API responded with status: ${response.status}`);
+      const errorText = await response.text();
+      throw new Error(`Gradio API error: ${errorText}`);
     }
 
-    // Create a transform stream to format the response
-    const transformStream = new TransformStream({
-      async transform(chunk, controller) {
-        const encoder = new TextEncoder();
-        controller.enqueue(encoder.encode(JSON.stringify(chunk) + '\n'));
+    const encoder = new TextEncoder();
+    let resultSent = false;
+
+    const readable = new ReadableStream({
+      async start(controller) {
+        try {
+          const data = await response.json();
+          if (data && !resultSent) {
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
+            resultSent = true;
+          }
+          controller.close();
+        } catch (error) {
+          controller.error(error);
+        }
       }
     });
 
-    return new Response(response.body?.pipeThrough(transformStream), { headers });
+    return new Response(readable, { headers });
 
   } catch (error) {
     console.error('Error in Gradio API route:', error);
