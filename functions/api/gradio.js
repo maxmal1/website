@@ -5,7 +5,7 @@ export async function onRequest(context) {
     'Access-Control-Allow-Headers': 'Content-Type',
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
+    'Connection': 'keep-alive',
   };
 
   if (context.request.method === 'OPTIONS') {
@@ -16,61 +16,76 @@ export async function onRequest(context) {
     const { word } = await context.request.json();
     console.log('Processing word:', word);
 
-    const response = await fetch('https://maxmal1-wordlebot.hf.space/gradio_api/call/predict', {
+    // Step 1: Send POST request to get event_id
+    const postResponse = await fetch('https://maxmal1-wordlebot.hf.space/gradio_api/call/predict', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         data: [word],
-        event_data: null
-      })
+        event_data: null,
+      }),
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Gradio API error: ${errorText}`);
+    if (!postResponse.ok) {
+      const errorText = await postResponse.text();
+      throw new Error(`Gradio API POST error: ${errorText}`);
     }
 
-    const encoder = new TextEncoder();
-    let resultSent = false;
+    const { event_id } = await postResponse.json();
+    console.log('Received event_id:', event_id);
 
+    if (!event_id) {
+      throw new Error('No event_id received from Gradio API');
+    }
+
+    // Step 2: Use event_id to poll the result
+    const encoder = new TextEncoder();
     const readable = new ReadableStream({
       async start(controller) {
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-    
         try {
+          const getResponse = await fetch(`https://maxmal1-wordlebot.hf.space/gradio_api/call/predict/${event_id}`, {
+            method: 'GET',
+          });
+
+          if (!getResponse.ok) {
+            const errorText = await getResponse.text();
+            throw new Error(`Gradio API GET error: ${errorText}`);
+          }
+
+          const reader = getResponse.body.getReader();
+          const decoder = new TextDecoder();
+
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
-    
+
             const chunk = decoder.decode(value, { stream: true });
-            console.log('Gradio API chunk:', chunk);
-    
+            console.log('Received chunk:', chunk);
+
             controller.enqueue(encoder.encode(`data: ${chunk}\n\n`));
           }
+
           controller.close();
         } catch (error) {
+          console.error('Error reading Gradio API result:', error);
           controller.error(error);
-        } finally {
-          reader.releaseLock();
         }
-      }
+      },
     });
 
     return new Response(readable, { headers });
-
   } catch (error) {
     console.error('Error in Gradio API route:', error);
     return new Response(
       JSON.stringify({
         error: error.message,
-        details: 'Error occurred in Gradio API route'
-      }), 
+        details: 'Error occurred in Gradio API route',
+      }),
       {
         headers: { 'Content-Type': 'application/json' },
-        status: 500
+        status: 500,
       }
     );
   }
