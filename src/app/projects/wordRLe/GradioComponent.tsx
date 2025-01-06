@@ -83,23 +83,25 @@ export default function WordleComponent() {
     setIsLoading(true);
     setError('');
     let isValidWord;
-        // @ts-ignore
-        if (wordsList.includes(input.toLowerCase())) {
-          isValidWord = true;
-          } else {
-            isValidWord = false;
-          }
-  
-        if (!isValidWord) {
-          setShowAlert(true);
-          setInput('');
-          // Hide alert after 2 seconds
-          setTimeout(() => {
-            setShowAlert(false);
-          }, 2000);
-          setIsLoading(false);
-          return;
-        }
+    
+    // Word validation
+    // @ts-ignore
+    if (wordsList.includes(input.toLowerCase())) {
+      isValidWord = true;
+    } else {
+      isValidWord = false;
+    }
+
+    if (!isValidWord) {
+      setShowAlert(true);
+      setInput('');
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 2000);
+      setIsLoading(false);
+      return;
+    }
+
     // Clear the board for new submission
     setGridState(Array(30).fill({
       letter: '',
@@ -131,19 +133,21 @@ export default function WordleComponent() {
         if (done) break;
 
         const chunk = decoder.decode(value);
+        console.log('Received chunk:', chunk); // Add this for debugging
         
-        
-        const events = chunk.split('\n').filter(Boolean);
-
-        for (const eventStr of events) {
+        const lines = chunk.split('\n').filter(Boolean);
+        for (const line of lines) {
           try {
+            // Check if line starts with 'data: ' and remove it if present
+            const jsonStr = line.startsWith('data: ') ? line.slice(6) : line;
+            const event = JSON.parse(jsonStr);
             
-            const event = JSON.parse(eventStr);
-            if (event.type === 'data') {
+            // Gradio response will be in event.data
+            if (event.data) {
               processChunk(event.data[0]);
             }
           } catch (error) {
-            console.error('Error processing event:', error);
+            console.error('Error processing line:', line, error);
           }
         }
       }
