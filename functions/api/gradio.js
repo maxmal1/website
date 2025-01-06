@@ -64,7 +64,24 @@ export async function onRequest(context) {
             const chunk = decoder.decode(value, { stream: true });
             console.log('Received chunk:', chunk);
 
-            controller.enqueue(encoder.encode(`data: ${chunk}\n\n`));
+            // Filter and parse valid JSON chunks
+            const validData = chunk
+              .split('\n')
+              .filter((line) => line.startsWith('data:') && line.trim().length > 5) // Skip non-data lines and short lines
+              .map((line) => line.replace(/^data:\s*/, '').trim()) // Remove the `data:` prefix
+              .filter((json) => {
+                try {
+                  JSON.parse(json); // Validate JSON
+                  return true;
+                } catch {
+                  return false;
+                }
+              });
+
+            // Send valid JSON chunks to the client
+            for (const data of validData) {
+              controller.enqueue(encoder.encode(`data: ${data}\n\n`));
+            }
           }
 
           controller.close();
