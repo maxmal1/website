@@ -16,7 +16,7 @@ export async function onRequest(context) {
     const { word } = await context.request.json();
 
     // Instead of using @gradio/client, we'll make direct fetch calls to the Gradio API
-    const response = await fetch('https://maxmal1-wordlebot.hf.space/api/predict', {
+    const response = await fetch('https://maxmal1-wordlebot.hf.space/gradio_api/call/predict', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
