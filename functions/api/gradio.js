@@ -37,15 +37,24 @@ export async function onRequest(context) {
 
     const readable = new ReadableStream({
       async start(controller) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+    
         try {
-          const data = await response.json();
-          if (data && !resultSent) {
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
-            resultSent = true;
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+    
+            const chunk = decoder.decode(value, { stream: true });
+            console.log('Gradio API chunk:', chunk);
+    
+            controller.enqueue(encoder.encode(`data: ${chunk}\n\n`));
           }
           controller.close();
         } catch (error) {
           controller.error(error);
+        } finally {
+          reader.releaseLock();
         }
       }
     });
