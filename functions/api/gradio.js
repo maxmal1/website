@@ -78,8 +78,9 @@ export async function onRequest(context) {
                 }
               });
 
-            // Send valid JSON chunks to the client
+            // Send valid JSON chunks to the client immediately
             for (const data of validData) {
+              console.log('Sending chunk to client:', data);
               controller.enqueue(encoder.encode(`data: ${data}\n\n`));
             }
           }
