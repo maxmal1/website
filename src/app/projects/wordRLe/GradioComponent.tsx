@@ -133,17 +133,21 @@ export default function WordleComponent() {
         if (done) break;
 
         const chunk = decoder.decode(value);
-        console.log('Received chunk:', chunk); // Add this for debugging
+        console.log('Received chunk__:', chunk); // Add this for debugging
         
         const lines = chunk.split('\n').filter(Boolean);
+        console.log('Lines:', lines);
         for (const line of lines) {
           try {
             // Check if line starts with 'data: ' and remove it if present
             const jsonStr = line.startsWith('data: ') ? line.slice(6) : line;
+            console.log('jsonstr:', jsonStr);
             const event = JSON.parse(jsonStr);
+            console.log('event:', event);
             
             // Gradio response will be in event.data
             if (event.data) {
+              console.log('event data:', event.data[0]);
               processChunk(event.data[0]);
             }
           } catch (error) {
