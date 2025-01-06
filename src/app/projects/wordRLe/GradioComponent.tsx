@@ -146,9 +146,9 @@ export default function WordleComponent() {
             console.log('event:', event);
             
             // Gradio response will be in event.data
-            if (event.data) {
-              console.log('event data:', event.data[0]);
-              processChunk(event.data[0]);
+            if (event) {
+              console.log('event data:', event[0]);
+              processChunk(event[0]);
             }
           } catch (error) {
             console.error('Error processing line:', line, error);
