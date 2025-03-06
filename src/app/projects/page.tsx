@@ -5,6 +5,13 @@ import Card from '../Card';
 export default function Home() {
     const cards = [
         {
+          image: '/stain.png',
+          title: 'stain augment',
+          content: 'Torch based stain augmentations for histopathological images.',
+          buttonLabel: 'GitHub',
+          buttonLink: "https://github.com/maxmal1/Stain-Augment"
+          },
+        {
             image: '/wordle.png',
             title: 'wordRLe',
             content: 'Offline RL project teaching a model to play the game of Wordle.',
